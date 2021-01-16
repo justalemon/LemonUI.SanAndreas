@@ -52,6 +52,28 @@ namespace LemonUI.SanAndreas
                 index = value;
             }
         }
+        /// <summary>
+        /// The item currently selected on the menu.
+        /// </summary>
+        public SAItem SelectedItem
+        {
+            get
+            {
+                if (items.Count == 0 || index >= items.Count)
+                {
+                    return null;
+                }
+                return items[SelectedIndex];
+            }
+            set
+            {
+                if (!items.Contains(value))
+                {
+                    throw new InvalidOperationException("Item is not part of the Menu.");
+                }
+                SelectedIndex = items.IndexOf(value);
+            }
+        }
 
         #endregion
 
