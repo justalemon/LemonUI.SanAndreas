@@ -20,6 +20,10 @@ namespace LemonUI.SanAndreas
         private bool visible;
         private int index = 0;
         private readonly ScaledText title = new ScaledText(PointF.Empty, "");
+        private readonly ScaledRectangle background = new ScaledRectangle(PointF.Empty, SizeF.Empty)
+        {
+            Color = Color.FromArgb(125, 0, 0, 0)
+        };
         private readonly List<SAItem> items = new List<SAItem>();
 
         #endregion
@@ -218,12 +222,17 @@ namespace LemonUI.SanAndreas
         /// </summary>
         public void Process()
         {
+            background.Draw();
         }
         /// <summary>
         /// Recalculates the position of the menu.
         /// </summary>
         public void Recalculate()
         {
+            PointF pos = new PointF(69, 350);
+
+            background.Position = pos;
+            background.Size = new SizeF(497, (39 * items.Count) + 163);
         }
         /// <summary>
         /// Removes a specific item from the menu.
