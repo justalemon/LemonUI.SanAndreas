@@ -5,6 +5,8 @@ using CancelEventHandler = System.ComponentModel.CancelEventHandler;
 using System;
 using System.Collections.Generic;
 using LemonUI.Menus;
+using LemonUI.Elements;
+using System.Drawing;
 
 namespace LemonUI.SanAndreas
 {
@@ -17,6 +19,7 @@ namespace LemonUI.SanAndreas
 
         private bool visible;
         private int index = 0;
+        private readonly ScaledText title = new ScaledText(PointF.Empty, "");
         private readonly List<SAItem> items = new List<SAItem>();
 
         #endregion
@@ -127,6 +130,14 @@ namespace LemonUI.SanAndreas
         /// Creates a new menu with no title.
         /// </summary>
         public SAMenu() => Recalculate();
+        /// <summary>
+        /// Creates a new menu with the specified title.
+        /// </summary>
+        /// <param name="title">The title to use.</param>
+        public SAMenu(string title)
+        {
+            this.title.Text = title;
+        }
 
         #endregion
 
