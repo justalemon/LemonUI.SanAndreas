@@ -98,6 +98,13 @@ namespace LemonUI.SanAndreas
         {
 
         }
+        /// <summary>
+        /// Draws the item.
+        /// </summary>
+        public void Draw()
+        {
+            title.Draw();
+        }
 
         #endregion
     }
