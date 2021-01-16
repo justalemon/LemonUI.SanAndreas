@@ -1,5 +1,10 @@
+#if !FIVEM
+using CancelEventArgs = System.ComponentModel.CancelEventArgs;
+using CancelEventHandler = System.ComponentModel.CancelEventHandler;
+#endif
 using System;
 using System.Collections.Generic;
+using LemonUI.Menus;
 
 namespace LemonUI.SanAndreas
 {
@@ -24,7 +29,21 @@ namespace LemonUI.SanAndreas
         public bool Visible
         {
             get => visible;
-            set => throw new NotImplementedException();
+            set
+            {
+                if (visible == value)
+                {
+                    return;
+                }
+                if (value)
+                {
+                    Open();
+                }
+                else
+                {
+                    Close();
+                }
+            }
         }
         /// <summary>
         /// The index of the currently selected item.
@@ -77,6 +96,31 @@ namespace LemonUI.SanAndreas
 
         #endregion
 
+        #region Events
+
+        /// <summary>
+        /// Event triggered when the menu is being opened.
+        /// </summary>
+        public event CancelEventHandler Opening;
+        /// <summary>
+        /// Event triggered when the menu is opened and shown to the user.
+        /// </summary>
+        public event EventHandler Shown;
+        /// <summary>
+        /// Event triggered when the menu starts closing.
+        /// </summary>
+        public event CancelEventHandler Closing;
+        /// <summary>
+        /// Event triggered when the menu finishes closing.
+        /// </summary>
+        public event EventHandler Closed;
+        /// <summary>
+        /// Event triggered when the index has been changed.
+        /// </summary>
+        public event SelectedEventHandler SelectedIndexChanged;
+
+        #endregion
+
         #region Constructor
 
         /// <summary>
@@ -87,6 +131,49 @@ namespace LemonUI.SanAndreas
         #endregion
 
         #region Functions
+
+        private void TriggerSelected()
+        {
+            // Get the currently selected item
+            SAItem item = SelectedItem;
+            // If is null or the menu is closed, return
+            if (item == null || !Visible)
+            {
+                return;
+            }
+            // Otherwise, trigger the selected event for this menu
+            SelectedEventArgs args = new SelectedEventArgs(index, index);
+            item.OnSelected(this, args);
+            SelectedIndexChanged?.Invoke(this, args);
+        }
+        private void Open()
+        {
+            // Check if we need to cancel the menu opening and return if we do
+            CancelEventArgs args = new CancelEventArgs();
+            Opening?.Invoke(this, args);
+            if (args.Cancel)
+            {
+                return;
+            }
+            // Mark the menu as visible
+            visible = true;
+            // And trigger the shown events for the menu and selected item
+            Shown?.Invoke(this, EventArgs.Empty);
+            TriggerSelected();
+        }
+        private void Close()
+        {
+            // Check if we need to cancel the menu closure and return if we do
+            CancelEventArgs args = new CancelEventArgs();
+            Closing?.Invoke(this, args);
+            if (args.Cancel)
+            {
+                return;
+            }
+            // Otherwise, close the menu
+            visible = false;
+            Closed?.Invoke(this, EventArgs.Empty);
+        }
 
         /// <summary>
         /// Adds a new item into the menu.
