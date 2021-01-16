@@ -1,3 +1,8 @@
+#if FIVEM
+using Font = CitizenFX.Core.UI.Font;
+#elif SHVDN3
+using Font = GTA.UI.Font;
+#endif
 using LemonUI.Elements;
 using LemonUI.Menus;
 using System;
@@ -13,7 +18,7 @@ namespace LemonUI.SanAndreas
         #region Fields
 
         private bool enabled = true;
-        internal readonly ScaledText title = new ScaledText(PointF.Empty, "");
+        internal readonly ScaledText title = new ScaledText(PointF.Empty, "", 0.68f, Font.ChaletComprimeCologne);
 
         #endregion
 
