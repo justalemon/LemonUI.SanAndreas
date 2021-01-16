@@ -1,4 +1,6 @@
 using LemonUI.Elements;
+using LemonUI.Menus;
+using System;
 using System.Drawing;
 
 namespace LemonUI.SanAndreas
@@ -10,12 +12,29 @@ namespace LemonUI.SanAndreas
     {
         #region Fields
 
+        private bool enabled = true;
         internal readonly ScaledText title = new ScaledText(PointF.Empty, "");
 
         #endregion
 
         #region Properties
 
+        /// <summary>
+        /// If this item can be used or not.
+        /// </summary>
+        public bool Enabled
+        {
+            get => enabled;
+            set
+            {
+                if (enabled == value)
+                {
+                    return;
+                }
+                enabled = value;
+                EnabledChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
         /// <summary>
         /// The title of the item.
         /// </summary>
@@ -24,6 +43,32 @@ namespace LemonUI.SanAndreas
             get => title.Text;
             set => title.Text = value;
         }
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Event triggered when the item is selected.
+        /// </summary>
+        public event SelectedEventHandler Selected;
+        /// <summary>
+        /// Event triggered when the item is activated.
+        /// </summary>
+        public event EventHandler Activated;
+        /// <summary>
+        /// Event triggered when the <see cref="Enabled"/> property is changed.
+        /// </summary>
+        public event EventHandler EnabledChanged;
+
+        /// <summary>
+        /// Triggers the Selected event.
+        /// </summary>
+        protected internal void OnSelected(object sender, SelectedEventArgs e) => Selected?.Invoke(sender, e);
+        /// <summary>
+        /// Triggers the Activated event.
+        /// </summary>
+        protected internal void OnActivated(object sender) => Activated?.Invoke(sender, EventArgs.Empty);
 
         #endregion
 
