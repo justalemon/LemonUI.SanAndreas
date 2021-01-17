@@ -1,6 +1,9 @@
-#if !FIVEM
+#if FIVEM
+using Font = CitizenFX.Core.UI.Font;
+#elif SHVDN3
 using CancelEventArgs = System.ComponentModel.CancelEventArgs;
 using CancelEventHandler = System.ComponentModel.CancelEventHandler;
+using Font = GTA.UI.Font;
 #endif
 using System;
 using System.Collections.Generic;
@@ -20,7 +23,10 @@ namespace LemonUI.SanAndreas
         private bool visible;
         private int index = 0;
         private float width = 497;
-        private readonly ScaledText title = new ScaledText(PointF.Empty, "");
+        private readonly ScaledText title = new ScaledText(PointF.Empty, "", 1.25f, Font.Monospace)
+        {
+            Outline = true
+        };
         private readonly ScaledRectangle background = new ScaledRectangle(PointF.Empty, SizeF.Empty)
         {
             Color = Color.FromArgb(125, 0, 0, 0)
@@ -170,9 +176,11 @@ namespace LemonUI.SanAndreas
                 return;
             }
             // Otherwise, trigger the selected event for this menu
+            /*
             SelectedEventArgs args = new SelectedEventArgs(index, index);
             item.OnSelected(this, args);
             SelectedIndexChanged?.Invoke(this, args);
+            */
         }
         private void Open()
         {
@@ -236,6 +244,7 @@ namespace LemonUI.SanAndreas
         public void Process()
         {
             background.Draw();
+            title.Draw();
 
             for (int i = 0; i < items.Count; i++)
             {
@@ -251,6 +260,8 @@ namespace LemonUI.SanAndreas
 
             background.Position = pos;
             background.Size = new SizeF(width, (39 * items.Count) + 163);
+
+            title.Position = new PointF(pos.X + 28, pos.Y - 40);
 
             for (int i = 0; i < items.Count; i++)
             {
