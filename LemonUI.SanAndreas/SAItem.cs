@@ -18,7 +18,7 @@ namespace LemonUI.SanAndreas
         #region Fields
 
         private bool enabled = true;
-        internal readonly ScaledText title = new ScaledText(PointF.Empty, "", 0.68f, Font.ChaletComprimeCologne);
+        internal readonly ScaledText title = new ScaledText(PointF.Empty, "", 0.68f, (Font)3);
 
         #endregion
 
