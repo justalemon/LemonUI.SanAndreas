@@ -241,7 +241,7 @@ namespace LemonUI.SanAndreas
 
             for (int i = 0; i < items.Count; i++)
             {
-                items[i].title.Position = new PointF(pos.X + 25, pos.Y + 96 + (39 * i));
+                items[i].title.Position = new PointF(pos.X + 24, pos.Y + 84 + (39 * i));
             }
         }
         /// <summary>
