@@ -223,6 +223,11 @@ namespace LemonUI.SanAndreas
         public void Process()
         {
             background.Draw();
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                items[i].Draw();
+            }
         }
         /// <summary>
         /// Recalculates the position of the menu.
@@ -233,6 +238,11 @@ namespace LemonUI.SanAndreas
 
             background.Position = pos;
             background.Size = new SizeF(497, (39 * items.Count) + 163);
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                items[i].title.Position = new PointF(pos.X + 25, pos.Y + 96 + (39 * i));
+            }
         }
         /// <summary>
         /// Removes a specific item from the menu.
