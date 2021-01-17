@@ -19,6 +19,7 @@ namespace LemonUI.SanAndreas
 
         private bool visible;
         private int index = 0;
+        private float width = 497;
         private readonly ScaledText title = new ScaledText(PointF.Empty, "");
         private readonly ScaledRectangle background = new ScaledRectangle(PointF.Empty, SizeF.Empty)
         {
@@ -98,6 +99,18 @@ namespace LemonUI.SanAndreas
                     throw new InvalidOperationException("Item is not part of the Menu.");
                 }
                 SelectedIndex = items.IndexOf(value);
+            }
+        }
+        /// <summary>
+        /// The Width of the menu.
+        /// </summary>
+        public float Width
+        {
+            get => width;
+            set
+            {
+                width = value;
+                Recalculate();
             }
         }
 
@@ -237,7 +250,7 @@ namespace LemonUI.SanAndreas
             PointF pos = new PointF(69, 350);
 
             background.Position = pos;
-            background.Size = new SizeF(497, (39 * items.Count) + 163);
+            background.Size = new SizeF(width, (39 * items.Count) + 163);
 
             for (int i = 0; i < items.Count; i++)
             {
