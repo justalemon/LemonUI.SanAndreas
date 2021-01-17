@@ -28,10 +28,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LemonUI.SHVDN3" Version="1.2.0">
-      <IncludeAssets>compile</IncludeAssets>
-    </PackageReference>
     <Compile Include="$(ProjectDir)/../LemonUI.SanAndreas/**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LemonUI\LemonUI.SHVDN3\LemonUI.SHVDN3.csproj" />
   </ItemGroup>
 
 </Project>
