@@ -19,6 +19,9 @@ namespace LemonUI.SanAndreas
     {
         #region Fields
 
+        private PointF lastPos = PointF.Empty;
+        private float lastWidth = 0;
+
         private bool enabled = true;
         internal readonly ScaledText title = new ScaledText(PointF.Empty, "", 0.68f, (Font)3);
         internal readonly ScaledText subtitle = new ScaledText(PointF.Empty, "", 0.68f, (Font)3)
@@ -106,11 +109,21 @@ namespace LemonUI.SanAndreas
         #region Functions
 
         /// <summary>
-        /// Recalculates the position of the menu with the last known values.
+        /// Recalculates the position of the item with the last known values.
         /// </summary>
-        private void Recalculate()
+        private void Recalculate() => Recalculate(lastPos, lastWidth);
+        /// <summary>
+        /// Recalculates the position of the item.
+        /// </summary>
+        /// <param name="pos">The base position of the item.</param>
+        /// <param name="width">The width of the menu.</param>
+        public void Recalculate(PointF pos, float width)
         {
+            lastPos = pos;
+            lastWidth = width;
 
+            title.Position = new PointF(pos.X + 24, pos.Y);
+            subtitle.Position = new PointF(pos.X + width - 24, pos.Y);
         }
         /// <summary>
         /// Draws the item.
