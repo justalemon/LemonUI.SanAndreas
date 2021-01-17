@@ -1,7 +1,9 @@
 #if FIVEM
 using Font = CitizenFX.Core.UI.Font;
+using Alignment = CitizenFX.Core.UI.Alignment;
 #elif SHVDN3
 using Font = GTA.UI.Font;
+using Alignment = GTA.UI.Alignment;
 #endif
 using LemonUI.Elements;
 using LemonUI.Menus;
@@ -19,6 +21,10 @@ namespace LemonUI.SanAndreas
 
         private bool enabled = true;
         internal readonly ScaledText title = new ScaledText(PointF.Empty, "", 0.68f, (Font)3);
+        internal readonly ScaledText subtitle = new ScaledText(PointF.Empty, "", 0.68f, (Font)3)
+        {
+            Alignment = Alignment.Right
+        };
 
         #endregion
 
@@ -86,6 +92,14 @@ namespace LemonUI.SanAndreas
         {
             this.title.Text = title;
         }
+        /// <summary>
+        /// Creates a new item with a title and subtitle.
+        /// </summary>
+        public SAItem(string title, string subtitle)
+        {
+            this.title.Text = title;
+            this.subtitle.Text = subtitle;
+        }
 
         #endregion
 
@@ -104,6 +118,7 @@ namespace LemonUI.SanAndreas
         public void Draw()
         {
             title.Draw();
+            subtitle.Draw();
         }
 
         #endregion
