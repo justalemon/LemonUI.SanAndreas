@@ -24,6 +24,8 @@ namespace LemonUI.SanAndreas
         private int index = 0;
         private float width = 497;
         private SAItem header = null;
+        private PointF offset = PointF.Empty;
+
         private readonly ScaledText title = new ScaledText(PointF.Empty, "", 1.25f, Font.Monospace)
         {
             Color = Color.FromArgb(255, 221, 221, 221),
@@ -107,6 +109,18 @@ namespace LemonUI.SanAndreas
                     throw new InvalidOperationException("Item is not part of the Menu.");
                 }
                 SelectedIndex = items.IndexOf(value);
+            }
+        }
+        /// <summary>
+        /// The offset from the top left corner of the screen.
+        /// </summary>
+        public PointF Offset
+        {
+            get => offset;
+            set
+            {
+                offset = value;
+                Recalculate();
             }
         }
         /// <summary>
@@ -274,20 +288,20 @@ namespace LemonUI.SanAndreas
         {
             SAItem selected = SelectedItem;
 
-            background.Position = pos;
-            background.Size = new SizeF(width, (39 * items.Count) + 163);
-            title.Position = new PointF(pos.X + 28, pos.Y - 40);
+            background.Position = offset;
+            background.Size = new SizeF(width, (39 * items.Count) + (header == null ? 126 : 163));
+            title.Position = new PointF(offset.X + 28, offset.Y - 40);
 
             const float headerOffset = 37;
             if (header != null)
             {
-                header.Recalculate(new PointF(pos.X, pos.Y + headerOffset), width, false, true);
+                header.Recalculate(new PointF(offset.X, offset.Y + headerOffset), width, false, true);
             }
 
             for (int i = 0; i < items.Count; i++)
             {
                 SAItem item = items[i];
-                item.Recalculate(new PointF(pos.X, pos.Y + (header == null ? headerOffset : 84) + (39 * i)), width, item == selected);
+                item.Recalculate(new PointF(offset.X, offset.Y + (header == null ? headerOffset : 84) + (39 * i)), width, item == selected);
             }
         }
         /// <summary>
