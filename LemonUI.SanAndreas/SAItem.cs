@@ -19,8 +19,13 @@ namespace LemonUI.SanAndreas
     {
         #region Fields
 
+        private static readonly Color colorSelected = Color.FromArgb(255, 168, 199, 237);
+        private static readonly Color colorNotSelected = Color.FromArgb(255, 70, 86, 104);
+        private static readonly Color colorDisabled = Color.FromArgb(255, 146, 146, 146);
+
         private PointF lastPos = PointF.Empty;
         private float lastWidth = 0;
+        private bool lastSelected = false;
 
         private bool enabled = true;
         internal readonly ScaledText title = new ScaledText(PointF.Empty, "", 0.68f, (Font)3)
@@ -49,6 +54,7 @@ namespace LemonUI.SanAndreas
                 {
                     return;
                 }
+                UpdateColor(value);
                 enabled = value;
                 EnabledChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -113,18 +119,44 @@ namespace LemonUI.SanAndreas
         #region Functions
 
         /// <summary>
+        /// Updates the colors of the text.
+        /// </summary>
+        /// <param name="selected">If the item is selected or not.</param>
+        private void UpdateColor(bool selected)
+        {
+            if (!enabled)
+            {
+                title.Color = colorDisabled;
+                subtitle.Color = colorDisabled;
+            }
+            else if (selected)
+            {
+                title.Color = colorSelected;
+                subtitle.Color = colorSelected;
+            }
+            else
+            {
+                title.Color = colorNotSelected;
+                subtitle.Color = colorNotSelected;
+            }
+        }
+        /// <summary>
         /// Recalculates the position of the item with the last known values.
         /// </summary>
-        private void Recalculate() => Recalculate(lastPos, lastWidth);
+        private void Recalculate() => Recalculate(lastPos, lastWidth, lastSelected);
         /// <summary>
         /// Recalculates the position of the item.
         /// </summary>
         /// <param name="pos">The base position of the item.</param>
         /// <param name="width">The width of the menu.</param>
-        public void Recalculate(PointF pos, float width)
+        /// <param name="selected">If the item is selected or not.</param>
+        public void Recalculate(PointF pos, float width, bool selected)
         {
             lastPos = pos;
             lastWidth = width;
+            lastSelected = selected;
+
+            UpdateColor(selected);
 
             title.Position = new PointF(pos.X + 24, pos.Y);
             subtitle.Position = new PointF(pos.X + width - 24, pos.Y);

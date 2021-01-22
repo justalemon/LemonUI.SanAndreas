@@ -25,6 +25,7 @@ namespace LemonUI.SanAndreas
         private float width = 497;
         private readonly ScaledText title = new ScaledText(PointF.Empty, "", 1.25f, Font.Monospace)
         {
+            Color = Color.FromArgb(255, 221, 221, 221),
             Outline = true
         };
         private readonly ScaledRectangle background = new ScaledRectangle(PointF.Empty, SizeF.Empty)
@@ -257,6 +258,7 @@ namespace LemonUI.SanAndreas
         public void Recalculate()
         {
             PointF pos = new PointF(69, 350);
+            SAItem selected = SelectedItem;
 
             background.Position = pos;
             background.Size = new SizeF(width, (39 * items.Count) + 163);
@@ -265,7 +267,8 @@ namespace LemonUI.SanAndreas
 
             for (int i = 0; i < items.Count; i++)
             {
-                items[i].Recalculate(new PointF(pos.X, pos.Y + 84 + (39 * i)), width);
+                SAItem item = items[i];
+                item.Recalculate(new PointF(pos.X, pos.Y + 84 + (39 * i)), width, item == selected);
             }
         }
         /// <summary>
