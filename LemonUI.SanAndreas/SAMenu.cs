@@ -88,6 +88,7 @@ namespace LemonUI.SanAndreas
                     throw new ArgumentOutOfRangeException(nameof(value), value, $"Index is over {items.Count - 1}.");
                 }
                 index = value;
+                TriggerSelected();
             }
         }
         /// <summary>
@@ -217,11 +218,9 @@ namespace LemonUI.SanAndreas
                 return;
             }
             // Otherwise, trigger the selected event for this menu
-            /*
             SelectedEventArgs args = new SelectedEventArgs(index, index);
             item.OnSelected(this, args);
             SelectedIndexChanged?.Invoke(this, args);
-            */
         }
         private void Open()
         {
