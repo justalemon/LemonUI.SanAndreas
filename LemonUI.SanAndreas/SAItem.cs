@@ -23,10 +23,14 @@ namespace LemonUI.SanAndreas
         private float lastWidth = 0;
 
         private bool enabled = true;
-        internal readonly ScaledText title = new ScaledText(PointF.Empty, "", 0.68f, (Font)3);
+        internal readonly ScaledText title = new ScaledText(PointF.Empty, "", 0.68f, (Font)3)
+        {
+            Shadow = true
+        };
         internal readonly ScaledText subtitle = new ScaledText(PointF.Empty, "", 0.68f, (Font)3)
         {
-            Alignment = Alignment.Right
+            Alignment = Alignment.Right,
+            Shadow = true
         };
 
         #endregion
