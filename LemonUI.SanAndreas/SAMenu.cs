@@ -88,6 +88,11 @@ namespace LemonUI.SanAndreas
                     throw new ArgumentOutOfRangeException(nameof(value), value, $"Index is over {items.Count - 1}.");
                 }
                 index = value;
+                SAItem selected = SelectedItem;
+                foreach (SAItem item in items)
+                {
+                    item.UpdateColor(item == selected, false);
+                }
                 TriggerSelected();
             }
         }

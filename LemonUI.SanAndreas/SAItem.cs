@@ -125,7 +125,7 @@ namespace LemonUI.SanAndreas
         /// </summary>
         /// <param name="selected">If the item is selected or not.</param>
         /// <param name="header">If the item is a menu header or not.</param>
-        private void UpdateColor(bool selected, bool header)
+        internal void UpdateColor(bool selected, bool header)
         {
             if (header)
             {
