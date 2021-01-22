@@ -23,6 +23,7 @@ namespace LemonUI.SanAndreas
         private bool visible;
         private int index = 0;
         private float width = 497;
+        private SAItem header = null;
         private readonly ScaledText title = new ScaledText(PointF.Empty, "", 1.25f, Font.Monospace)
         {
             Color = Color.FromArgb(255, 221, 221, 221),
@@ -106,6 +107,18 @@ namespace LemonUI.SanAndreas
                     throw new InvalidOperationException("Item is not part of the Menu.");
                 }
                 SelectedIndex = items.IndexOf(value);
+            }
+        }
+        /// <summary>
+        /// The header of the menu items.
+        /// </summary>
+        public SAItem Header
+        {
+            get => header;
+            set
+            {
+                header = value;
+                Recalculate();
             }
         }
         /// <summary>
@@ -247,6 +260,8 @@ namespace LemonUI.SanAndreas
             background.Draw();
             title.Draw();
 
+            header?.Draw();
+
             for (int i = 0; i < items.Count; i++)
             {
                 items[i].Draw();
@@ -257,18 +272,22 @@ namespace LemonUI.SanAndreas
         /// </summary>
         public void Recalculate()
         {
-            PointF pos = new PointF(69, 350);
             SAItem selected = SelectedItem;
 
             background.Position = pos;
             background.Size = new SizeF(width, (39 * items.Count) + 163);
-
             title.Position = new PointF(pos.X + 28, pos.Y - 40);
+
+            const float headerOffset = 37;
+            if (header != null)
+            {
+                header.Recalculate(new PointF(pos.X, pos.Y + headerOffset), width, false, true);
+            }
 
             for (int i = 0; i < items.Count; i++)
             {
                 SAItem item = items[i];
-                item.Recalculate(new PointF(pos.X, pos.Y + 84 + (39 * i)), width, item == selected);
+                item.Recalculate(new PointF(pos.X, pos.Y + (header == null ? headerOffset : 84) + (39 * i)), width, item == selected);
             }
         }
         /// <summary>
