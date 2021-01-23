@@ -22,7 +22,7 @@ namespace LemonUI.SanAndreas
     {
         #region Fields
 
-        private bool visible;
+        private bool visible = false;
         private int index = 0;
         private float width = 497;
         private SanAndreasItem header = null;
