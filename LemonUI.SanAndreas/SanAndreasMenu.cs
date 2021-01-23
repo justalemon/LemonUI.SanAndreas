@@ -18,14 +18,14 @@ namespace LemonUI.SanAndreas
     /// <summary>
     /// A GTA San Andreas Inspired menu.
     /// </summary>
-    public class SAMenu : IContainer<SAItem>
+    public class SanAndreasMenu : IContainer<SanAndreasItem>
     {
         #region Fields
 
         private bool visible;
         private int index = 0;
         private float width = 497;
-        private SAItem header = null;
+        private SanAndreasItem header = null;
         private PointF offset = PointF.Empty;
         private bool safeZoneAware = false;
 
@@ -38,7 +38,7 @@ namespace LemonUI.SanAndreas
         {
             Color = Color.FromArgb(125, 0, 0, 0)
         };
-        private readonly List<SAItem> items = new List<SAItem>();
+        private readonly List<SanAndreasItem> items = new List<SanAndreasItem>();
 
         #endregion
 
@@ -90,8 +90,8 @@ namespace LemonUI.SanAndreas
                     throw new ArgumentOutOfRangeException(nameof(value), value, $"Index is over {items.Count - 1}.");
                 }
                 index = value;
-                SAItem selected = SelectedItem;
-                foreach (SAItem item in items)
+                SanAndreasItem selected = SelectedItem;
+                foreach (SanAndreasItem item in items)
                 {
                     item.UpdateColor(item == selected, false);
                 }
@@ -101,7 +101,7 @@ namespace LemonUI.SanAndreas
         /// <summary>
         /// The item currently selected on the menu.
         /// </summary>
-        public SAItem SelectedItem
+        public SanAndreasItem SelectedItem
         {
             get
             {
@@ -147,7 +147,7 @@ namespace LemonUI.SanAndreas
         /// <summary>
         /// The header of the menu items.
         /// </summary>
-        public SAItem Header
+        public SanAndreasItem Header
         {
             get => header;
             set
@@ -201,12 +201,12 @@ namespace LemonUI.SanAndreas
         /// <summary>
         /// Creates a new menu with no title.
         /// </summary>
-        public SAMenu() => Recalculate();
+        public SanAndreasMenu() => Recalculate();
         /// <summary>
         /// Creates a new menu with the specified title.
         /// </summary>
         /// <param name="title">The title to use.</param>
-        public SAMenu(string title)
+        public SanAndreasMenu(string title)
         {
             this.title.Text = title;
         }
@@ -218,7 +218,7 @@ namespace LemonUI.SanAndreas
         private void TriggerSelected()
         {
             // Get the currently selected item
-            SAItem item = SelectedItem;
+            SanAndreasItem item = SelectedItem;
             // If is null or the menu is closed, return
             if (item == null || !Visible)
             {
@@ -262,7 +262,7 @@ namespace LemonUI.SanAndreas
         /// Adds a new item into the menu.
         /// </summary>
         /// <param name="item">The item to add.</param>
-        public void Add(SAItem item)
+        public void Add(SanAndreasItem item)
         {
             if (items.Contains(item))
             {
@@ -284,7 +284,7 @@ namespace LemonUI.SanAndreas
         /// </summary>
         /// <param name="item">THe item to check.</param>
         /// <returns></returns>
-        public bool Contains(SAItem item) => items.Contains(item);
+        public bool Contains(SanAndreasItem item) => items.Contains(item);
         /// <summary>
         /// Processes the menu contents.
         /// </summary>
@@ -347,7 +347,7 @@ namespace LemonUI.SanAndreas
             else if (Game.IsControlJustPressed(Control.FrontendAccept))
 #endif
             {
-                SAItem item = SelectedItem;
+                SanAndreasItem item = SelectedItem;
                 if (item != null)
                 {
                     item.OnActivated(this);
@@ -359,7 +359,7 @@ namespace LemonUI.SanAndreas
         /// </summary>
         public void Recalculate()
         {
-            SAItem selected = SelectedItem;
+            SanAndreasItem selected = SelectedItem;
 
             PointF pos;
             if (safeZoneAware)
@@ -385,7 +385,7 @@ namespace LemonUI.SanAndreas
 
             for (int i = 0; i < items.Count; i++)
             {
-                SAItem item = items[i];
+                SanAndreasItem item = items[i];
                 item.Recalculate(new PointF(pos.X, pos.Y + (header == null ? headerOffset : 84) + (39 * i)), width, item == selected, false);
             }
         }
@@ -393,7 +393,7 @@ namespace LemonUI.SanAndreas
         /// Removes a specific item from the menu.
         /// </summary>
         /// <param name="item">The item to remove.</param>
-        public void Remove(SAItem item)
+        public void Remove(SanAndreasItem item)
         {
             if (items.Remove(item))
             {
@@ -404,9 +404,9 @@ namespace LemonUI.SanAndreas
         /// Removes the items that match the predicate.
         /// </summary>
         /// <param name="func">The predicate to match items.</param>
-        public void Remove(Func<SAItem, bool> func)
+        public void Remove(Func<SanAndreasItem, bool> func)
         {
-            if (items.RemoveAll(new Predicate<SAItem>(func)) > 0)
+            if (items.RemoveAll(new Predicate<SanAndreasItem>(func)) > 0)
             {
                 Recalculate();
             }

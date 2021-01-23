@@ -15,7 +15,7 @@ namespace LemonUI.SanAndreas
     /// <summary>
     /// Simple item used on the San Andreas menus.
     /// </summary>
-    public class SAItem
+    public class SanAndreasItem
     {
         #region Fields
 
@@ -109,14 +109,14 @@ namespace LemonUI.SanAndreas
         /// <summary>
         /// Creates a new item with a title.
         /// </summary>
-        public SAItem(string title)
+        public SanAndreasItem(string title)
         {
             this.title.Text = title;
         }
         /// <summary>
         /// Creates a new item with a title and subtitle.
         /// </summary>
-        public SAItem(string title, string subtitle)
+        public SanAndreasItem(string title, string subtitle)
         {
             this.title.Text = title;
             this.subtitle.Text = subtitle;
