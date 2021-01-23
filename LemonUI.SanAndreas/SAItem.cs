@@ -24,8 +24,6 @@ namespace LemonUI.SanAndreas
         private static readonly Color colorDisabled = Color.FromArgb(255, 146, 146, 146);
         private static readonly Color colorHeader = Color.FromArgb(255, 221, 221, 221);
 
-        private PointF lastPos = PointF.Empty;
-        private float lastWidth = 0;
         private bool lastSelected = false;
         private bool lastHeader = false;
 
@@ -56,7 +54,7 @@ namespace LemonUI.SanAndreas
                 {
                     return;
                 }
-                UpdateColor(value, lastHeader);
+                UpdateColor(lastSelected, lastHeader);
                 enabled = value;
                 EnabledChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -162,22 +160,9 @@ namespace LemonUI.SanAndreas
         /// <param name="pos">The base position of the item.</param>
         /// <param name="width">The width of the menu.</param>
         /// <param name="selected">If the item is selected or not.</param>
-        public void Recalculate(PointF pos, float width, bool selected) => Recalculate(pos, width, selected, false);
-        /// <summary>
-        /// Recalculates the position of the item with the last known values.
-        /// </summary>
-        private void Recalculate() => Recalculate(lastPos, lastWidth, lastSelected);
-        /// <summary>
-        /// Recalculates the position of the item.
-        /// </summary>
-        /// <param name="pos">The base position of the item.</param>
-        /// <param name="width">The width of the menu.</param>
-        /// <param name="selected">If the item is selected or not.</param>
         /// <param name="header">If the item is a menu header.</param>
         internal void Recalculate(PointF pos, float width, bool selected, bool header)
         {
-            lastPos = pos;
-            lastWidth = width;
             lastSelected = selected;
             lastHeader = header;
 

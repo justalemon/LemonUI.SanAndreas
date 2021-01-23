@@ -386,7 +386,7 @@ namespace LemonUI.SanAndreas
             for (int i = 0; i < items.Count; i++)
             {
                 SAItem item = items[i];
-                item.Recalculate(new PointF(pos.X, pos.Y + (header == null ? headerOffset : 84) + (39 * i)), width, item == selected);
+                item.Recalculate(new PointF(pos.X, pos.Y + (header == null ? headerOffset : 84) + (39 * i)), width, item == selected, false);
             }
         }
         /// <summary>
