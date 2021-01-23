@@ -290,6 +290,11 @@ namespace LemonUI.SanAndreas
         /// </summary>
         public void Process()
         {
+            if (!visible)
+            {
+                return;
+            }
+
             background.Draw();
             title.Draw();
 
