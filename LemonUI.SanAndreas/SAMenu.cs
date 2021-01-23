@@ -1,6 +1,8 @@
 #if FIVEM
+using CitizenFX.Core;
 using Font = CitizenFX.Core.UI.Font;
 #elif SHVDN3
+using GTA;
 using CancelEventArgs = System.ComponentModel.CancelEventArgs;
 using CancelEventHandler = System.ComponentModel.CancelEventHandler;
 using Font = GTA.UI.Font;
@@ -296,6 +298,60 @@ namespace LemonUI.SanAndreas
             for (int i = 0; i < items.Count; i++)
             {
                 items[i].Draw();
+            }
+
+            if (items.Count == 0)
+            {
+                return;
+            }
+
+#if FIVEM
+            Game.DisableAllControlsThisFrame(2);
+#elif SHVDN3
+            Game.DisableAllControlsThisFrame();
+#endif
+
+#if FIVEM
+            if (Game.IsControlJustPressed(0, Control.FrontendUp))
+#elif SHVDN3
+            if (Game.IsControlJustPressed(Control.FrontendUp))
+#endif
+            {
+                if (SelectedIndex == 0)
+                {
+                    SelectedIndex = items.Count - 1;
+                }
+                else
+                {
+                    SelectedIndex -= 1;
+                }
+            }
+#if FIVEM
+            else if (Game.IsControlJustPressed(0, Control.FrontendDown))
+#elif SHVDN3
+            else if (Game.IsControlJustPressed(Control.FrontendDown))
+#endif
+            {
+                if (items.Count - 1 == SelectedIndex)
+                {
+                    SelectedIndex = 0;
+                }
+                else
+                {
+                    SelectedIndex += 1;
+                }
+            }
+#if FIVEM
+            else if (Game.IsControlJustPressed(0, Control.FrontendAccept))
+#elif SHVDN3
+            else if (Game.IsControlJustPressed(Control.FrontendAccept))
+#endif
+            {
+                SAItem item = SelectedItem;
+                if (item != null)
+                {
+                    item.OnActivated(this);
+                }
             }
         }
         /// <summary>
