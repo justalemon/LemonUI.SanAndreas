@@ -69,6 +69,14 @@ namespace LemonUI.SanAndreas
             get => title.Text;
             set => title.Text = value;
         }
+        /// <summary>
+        /// The subtitle of the item.
+        /// </summary>
+        public string Subtitle
+        {
+            get => subtitle.Text;
+            set => subtitle.Text = value;
+        }
 
         #endregion
 
